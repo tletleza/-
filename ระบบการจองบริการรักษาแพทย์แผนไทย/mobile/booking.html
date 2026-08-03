@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>จองคิวตรวจรักษา - Patient Mobile App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-device-frame">
+        <div class="mobile-status-bar">
+            <span>09:41</span>
+            <div class="mobile-notch"></div>
+            <span>📶 🔋 100%</span>
+        </div>
+
+        <div class="mobile-screen-body">
+            
+            <!-- SECTION 1: CALENDAR SLOT SELECTION -->
+            <div id="sectionCalendar" class="fade-in">
+                <div class="app-bar-header">
+                    <a href="screening.html" class="btn-back-icon" style="text-decoration: none; color: var(--text-main);">←</a>
+                    <div style="font-weight: 700; font-size: 1rem; color: var(--primary-dark);">เลือกวันและเวลาตรวจ</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <div style="background: var(--primary-subtle); padding: 1rem; border-radius: 16px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem;">
+                    <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700;">ส</div>
+                    <div>
+                        <div style="font-weight: 700; font-size: 0.95rem; color: var(--primary-dark);">พท.ว. สมชาย ใจดี</div>
+                        <div style="font-size: 0.78rem; color: var(--text-muted);">ผู้เชี่ยวชาญนวดราชสำนัก & ออฟฟิศซินโดรม</div>
+                    </div>
+                </div>
+
+                <div class="slot-section-title">📅 เลือกระบุวันที่ต้องการตรวจรักษา</div>
+                <div class="date-picker-scroll">
+                    <div class="date-pill-btn active" onclick="selectDate(this)">
+                        <div class="date-pill-day">เสาร์</div>
+                        <div class="date-pill-num">1 ส.ค.</div>
+                    </div>
+                    <div class="date-pill-btn" onclick="selectDate(this)">
+                        <div class="date-pill-day">อาทิตย์</div>
+                        <div class="date-pill-num">2 ส.ค.</div>
+                    </div>
+                </div>
+
+                <div class="slot-section-title">☀️ รอบช่วงเวลาตรวจ</div>
+                <div class="time-slots-grid">
+                    <div class="slot-btn selected" onclick="selectSlot(this)">10:00 - 11:30 น.</div>
+                    <div class="slot-btn" onclick="selectSlot(this)">13:30 - 15:00 น.</div>
+                </div>
+
+                <button type="button" class="btn-mobile-submit" style="margin-top: 1rem;" onclick="goToSummary()">
+                    <span>สรุปรายละเอียดการจอง</span>
+                    <span>➔</span>
+                </button>
+            </div>
+
+            <!-- SECTION 2: BOOKING SUMMARY -->
+            <div id="sectionSummary" class="fade-in" style="display: none;">
+                <div class="app-bar-header">
+                    <div class="btn-back-icon" onclick="backToCalendar()">←</div>
+                    <div style="font-weight: 700; font-size: 1rem; color: var(--primary-dark);">สรุปการจองและค่าบริการ</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-item-row"><span class="summary-label">หัตถการ:</span><span class="summary-value" style="color: var(--primary);">นวดไทยราชสำนักแก้อาการ</span></div>
+                    <div class="summary-item-row"><span class="summary-label">แพทย์:</span><span class="summary-value">พท.ว. สมชาย ใจดี</span></div>
+                    <div class="summary-item-row"><span class="summary-label">วันที่-เวลา:</span><span class="summary-value" style="color:#0284C7;">เสาร์ที่ 1 ส.ค. (10:00 - 11:30 น.)</span></div>
+
+                    <div class="cost-breakdown-box">
+                        <div class="cost-line"><span>ค่านวดไทยราชสำนัก (60 นาที):</span><span>฿850.00</span></div>
+                        <div class="cost-line"><span>ค่าคัดกรองประเมินเบื้องต้น:</span><span style="color: #059669;">฿0.00 (ฟรี)</span></div>
+                        <div class="cost-total-line"><span>ประมาณการชำระสุทธิ:</span><span style="color: var(--primary);">฿850.00</span></div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-mobile-submit" style="background: #059669;" onclick="confirmBooking()">
+                    <span>⚡ ยืนยันการจองคิว (Confirm Booking)</span>
+                </button>
+            </div>
+
+            <!-- SECTION 3: TICKET CONFIRMATION -->
+            <div id="sectionTicket" class="fade-in" style="display: none;">
+                <div class="ticket-card">
+                    <div class="ticket-check-icon">✓</div>
+                    <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--primary-dark);">การจองคิวสำเร็จแล้ว!</h2>
+                    <div class="queue-badge-large">QUEUE #Q-042</div>
+                    <a href="history.html" class="btn-mobile-submit" style="text-decoration: none;">
+                        <span>ดูประวัติการรักษาทั้งหมด</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="mobile-bottom-nav" id="mobileBottomNav"></nav>
+    </div>
+
+    <script src="common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMobileBottomNav('screening');
+        });
+
+        function selectDate(btn) {
+            document.querySelectorAll('.date-pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function selectSlot(btn) {
+            document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function goToSummary() {
+            document.getElementById('sectionCalendar').style.display = 'none';
+            document.getElementById('sectionSummary').style.display = 'block';
+        }
+
+        function backToCalendar() {
+            document.getElementById('sectionSummary').style.display = 'none';
+            document.getElementById('sectionCalendar').style.display = 'block';
+        }
+
+        function confirmBooking() {
+            showMobileToast('⏳ ยืนยันคิวจองเรียบร้อย!');
+            document.getElementById('sectionSummary').style.display = 'none';
+            document.getElementById('sectionTicket').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

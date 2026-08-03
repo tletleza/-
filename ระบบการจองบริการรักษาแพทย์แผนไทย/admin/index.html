@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบการจองแพทย์แผนไทย - Admin Portal Entry</title>
+    <script>
+        // Auto Redirect to Dashboard or Login Page based on session state
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = sessionStorage.getItem('ttm_user');
+            if (user) {
+                window.location.href = 'dashboard.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div style="font-family: sans-serif; text-align: center; margin-top: 20vh; color: #2D5A4C;">
+        <h2>🌿 กำลังนำท่านเข้าสู่ระบบบริหารจัดการคลินิกแพทย์แผนไทย...</h2>
+        <p>Please wait while we redirect you to the Admin Portal.</p>
+    </div>
+</body>
+</html>

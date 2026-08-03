@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ทีมแพทย์ผู้เชี่ยวชาญ - Patient Mobile App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-device-frame">
+        <div class="mobile-status-bar">
+            <span>09:41</span>
+            <div class="mobile-notch"></div>
+            <span>📶 🔋 100%</span>
+        </div>
+
+        <div class="mobile-screen-body">
+            <div class="app-bar-header">
+                <div>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-dark);">👨‍⚕️ บุคลากรและแพทย์ผู้เชี่ยวชาญ</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">ทีมแพทย์แผนไทยประยุกต์และนักศึกษาฝึกงาน</p>
+                </div>
+            </div>
+
+            <!-- Doctor Category Filter Tabs -->
+            <div class="tab-segmented-control" style="margin-bottom: 1.25rem;">
+                <button type="button" class="tab-segmented-btn active" onclick="filterDoctors('all', this)">ทั้งหมด</button>
+                <button type="button" class="tab-segmented-btn" onclick="filterDoctors('doctor', this)">แพทย์แผนไทย</button>
+                <button type="button" class="tab-segmented-btn" onclick="filterDoctors('intern', this)">นักศึกษาฝึกงาน</button>
+            </div>
+
+            <!-- Doctor Profile Card 1 -->
+            <div class="doctor-profile-card doc-item-card" data-role="doctor">
+                <div class="doc-card-header">
+                    <div class="doc-avatar-lg">ส</div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div class="doc-name">พท.ว. สมชาย ใจดี</div>
+                            <span style="background: #D1FAE5; color: #065F46; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 9999px;">🟢 ออกตรวจวันนี้</span>
+                        </div>
+                        <div style="font-size: 0.78rem; color: var(--primary); font-weight: 700;">แพทย์แผนไทยผู้เชี่ยวชาญ (พท.ว. / พท.น.)</div>
+                        <div class="doc-license">ใบอนุญาต: พท.ว. 12345 • ประสบการณ์ 15 ปี</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: #D97706; margin-bottom: 0.75rem;">
+                    <span>⭐ 4.9</span>
+                    <span style="color: var(--text-muted);">(128 รีวิวความพึงพอใจ)</span>
+                </div>
+
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.85rem;">
+                    เชี่ยวชาญการตรวจวินิจฉัยเวชกรรมไทย นวดราชสำนักแก้อาการออฟฟิศซินโดรมเรื้อรัง และการสั่งจ่ายยาสมุนไพรตามธาตุเจ้าเรือน
+                </p>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;">
+                    <span class="match-badge" style="background: var(--primary-subtle); color: var(--primary-dark); font-weight: 600;">✦ ออฟฟิศซินโดรม</span>
+                    <span class="match-badge" style="background: var(--primary-subtle); color: var(--primary-dark); font-weight: 600;">✦ นวดราชสำนัก</span>
+                    <span class="match-badge" style="background: var(--primary-subtle); color: var(--primary-dark); font-weight: 600;">✦ เวชกรรมไทย</span>
+                </div>
+
+                <a href="booking.html" class="btn-mobile-submit" style="font-size: 0.88rem; padding: 0.7rem; text-decoration: none;">
+                    <span>📅 จองคิวตรวจกับ พท.ว. สมชาย</span>
+                    <span>➔</span>
+                </a>
+            </div>
+
+            <!-- Doctor Profile Card 2 -->
+            <div class="doctor-profile-card doc-item-card" data-role="doctor">
+                <div class="doc-card-header">
+                    <div class="doc-avatar-lg" style="background: #FEF3C7; color: #92400E;">ป</div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div class="doc-name">พท.น. ประเสริฐ ยิ้มแย้ม</div>
+                            <span style="background: #E0F2FE; color: #0369A1; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 9999px;">🗓️ ประจำเสาร์-อาทิตย์</span>
+                        </div>
+                        <div style="font-size: 0.78rem; color: #92400E; font-weight: 700;">แพทย์แผนไทยด้านหัตถเวชกรรม (พท.น.)</div>
+                        <div class="doc-license">ใบอนุญาต: พท.น. 67890 • ประสบการณ์ 12 ปี</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: #D97706; margin-bottom: 0.75rem;">
+                    <span>⭐ 4.85</span>
+                    <span style="color: var(--text-muted);">(95 รีวิวความพึงพอใจ)</span>
+                </div>
+
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.85rem;">
+                    เชี่ยวชาญการดัดดอนตดข้อ จัดโครงสร้างร่างกาย แก้ไขอาการไหล่ติด ปวดสะบักจม และข้อต่อยึดตึง
+                </p>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;">
+                    <span class="match-badge" style="background: #FEF3C7; color: #92400E; font-weight: 600;">✦ ดัดดัดดอน/ตดข้อ</span>
+                    <span class="match-badge" style="background: #FEF3C7; color: #92400E; font-weight: 600;">✦ นวดแก้อาการไหล่ติด</span>
+                </div>
+
+                <a href="booking.html" class="btn-mobile-submit" style="font-size: 0.88rem; padding: 0.7rem; text-decoration: none; background: #92400E;">
+                    <span>📅 จองคิวตรวจกับ พท.น. ประเสริฐ</span>
+                    <span>➔</span>
+                </a>
+            </div>
+
+            <!-- Intern Profile Card 3 -->
+            <div class="doctor-profile-card doc-item-card" data-role="intern" style="border-left: 4px solid #10B981;">
+                <div class="doc-card-header">
+                    <div class="doc-avatar-lg" style="background: #FCE7F3; color: #9D174D;">ว</div>
+                    <div style="flex: 1;">
+                        <div class="doc-name">นศ.พท. วรรณา สุขสันต์</div>
+                        <div style="font-size: 0.78rem; color: #9D174D; font-weight: 700;">นักศึกษาแพทย์แผนไทยฝึกงาน (ชั้นปีที่ 4)</div>
+                        <div class="doc-license">มหาวิทยาลัยมหิดล • สะสมชั่วโมงฝึกงาน</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar for Intern Hours -->
+                <div style="background: #F1F5F3; padding: 0.85rem; border-radius: 12px; margin-bottom: 0.85rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.35rem;">
+                        <span style="color: #065F46;">🏆 ครบเกณฑ์สภาแพทย์แผนไทย</span>
+                        <span style="color: var(--primary-dark);">512.50 / 500 ชม. (100%)</span>
+                    </div>
+                    <div style="height: 6px; background: #E2E8F0; border-radius: 9999px; overflow: hidden;">
+                        <div style="width: 100%; height: 100%; background: #10B981;"></div>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.85rem;">
+                    มีความชำนาญสูงในหัตถการเผายาสมุนไพรสดหน้าท้อง ประคบสมุนไพรสด และการดูแลผู้ป่วยภายใต้อาจารย์แพทย์นิเทศ
+                </p>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;">
+                    <span class="match-badge" style="background: #FCE7F3; color: #9D174D; font-weight: 600;">✦ เผายาสมุนไพรสด</span>
+                    <span class="match-badge" style="background: #FCE7F3; color: #9D174D; font-weight: 600;">✦ ประคบสมุนไพร</span>
+                </div>
+
+                <a href="booking.html" class="btn-mobile-submit" style="font-size: 0.88rem; padding: 0.7rem; text-decoration: none; background: #059669;">
+                    <span>📅 จองคิวรับบริการกับ นศ.พท. วรรณา</span>
+                    <span>➔</span>
+                </a>
+            </div>
+
+        </div>
+
+        <nav class="mobile-bottom-nav" id="mobileBottomNav"></nav>
+    </div>
+
+    <script src="common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMobileBottomNav('doctors');
+        });
+
+        function filterDoctors(role, btn) {
+            document.querySelectorAll('.tab-segmented-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.doc-item-card');
+            cards.forEach(card => {
+                if (role === 'all' || card.getAttribute('data-role') === role) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            showMobileToast(`กรองแสดงผล: ${btn.textContent}`);
+        }
+    </script>
+</body>
+</html>

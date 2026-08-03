@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>แพ็กเกจสุดคุ้ม - Patient Mobile App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-device-frame">
+        <div class="mobile-status-bar">
+            <span>09:41</span>
+            <div class="mobile-notch"></div>
+            <span>📶 🔋 100%</span>
+        </div>
+
+        <div class="mobile-screen-body">
+            <div class="app-bar-header">
+                <div>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-dark);">🎁 แพ็กเกจสุดคุ้มแนะนำ</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">รวมหัตถการยอดนิยม ครบจบในคอร์สเดียวในราคาสุดพิเศษ</p>
+                </div>
+            </div>
+
+            <!-- Package Category Filter Tabs -->
+            <div class="tab-segmented-control" style="margin-bottom: 1.25rem;">
+                <button type="button" class="tab-segmented-btn active" onclick="filterPackages('all', this)">ทั้งหมด</button>
+                <button type="button" class="tab-segmented-btn" onclick="filterPackages('office', this)">ออฟฟิศซินโดรม</button>
+                <button type="button" class="tab-segmented-btn" onclick="filterPackages('detox', this)">ขับลมสมดุลธาตุ</button>
+            </div>
+
+            <!-- Package Card 1 -->
+            <div class="package-card popular pkg-item-card" data-cat="office">
+                <div class="package-ribbon">🔥 ขายดีอันดับ 1</div>
+                <div class="package-title">Office Syndrome Reset</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">เหมาะสำหรับผู้ทำงานหน้าคอมพิวเตอร์ มีอาการปวดตึงเรื้อรัง</div>
+                
+                <div style="background: var(--accent-subtle); padding: 0.4rem 0.75rem; border-radius: 8px; font-size: 0.75rem; font-weight: 700; color: #92400E; display: inline-block; margin-bottom: 0.75rem;">
+                    🏷️ ประหยัดถึง ฿260.00 บาท (คุ้มค่าที่สุด)
+                </div>
+
+                <ul class="package-includes">
+                    <li><span>✓</span> <b>นวดไทยราชสำนักแก้อาการ</b> (60 นาที)</li>
+                    <li><span>✓</span> <b>ประคบสมุนไพรสดคลายกล้ามเนื้อ</b> (30 นาที)</li>
+                    <li><span>✓</span> <b>ยาลูกกลอนกระจายลมปัตฆาต</b> 1 กระปุก</li>
+                </ul>
+
+                <div class="package-pricing">
+                    <div>
+                        <span class="price-main">฿1,190.00</span>
+                        <span class="price-strike">฿1,450.00</span>
+                    </div>
+                    <a href="booking.html" class="btn-mobile-submit" style="padding: 0.6rem 1.1rem; font-size: 0.85rem; text-decoration: none; width: auto;">
+                        <span>🛒 จองแพ็กเกจนี้</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Package Card 2 -->
+            <div class="package-card pkg-item-card" data-cat="detox">
+                <div class="package-title">Detox & Wind Relieving</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">ฟื้นฟูระบบย่อยอาหาร ขับลมในท้อง และสมานลำไส้</div>
+
+                <div style="background: #E0F2FE; padding: 0.4rem 0.75rem; border-radius: 8px; font-size: 0.75rem; font-weight: 700; color: #0369A1; display: inline-block; margin-bottom: 0.75rem;">
+                    🏷️ ประหยัดถึง ฿290.00 บาท
+                </div>
+                
+                <ul class="package-includes">
+                    <li><span>✓</span> <b>เผายาสมุนไพรสดหน้าท้อง</b> (45 นาที)</li>
+                    <li><span>✓</span> <b>นวดกดจุดแก้ลมดันหน้าท้อง</b> (45 นาที)</li>
+                    <li><span>✓</span> <b>ยาต้มปรับสมดุลธาตุประจำฤดู</b> 1 ชุด</li>
+                </ul>
+
+                <div class="package-pricing">
+                    <div>
+                        <span class="price-main">฿1,390.00</span>
+                        <span class="price-strike">฿1,680.00</span>
+                    </div>
+                    <a href="booking.html" class="btn-mobile-submit" style="padding: 0.6rem 1.1rem; font-size: 0.85rem; text-decoration: none; width: auto; background: #0369A1;">
+                        <span>🛒 จองแพ็กเกจนี้</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Package Card 3 -->
+            <div class="package-card pkg-item-card" data-cat="office">
+                <div class="package-title">Royal Total Body Recovery</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">ฟื้นฟูกล้ามเนื้อและระบบไหลเวียนเลือดลมทั่วร่างกาย</div>
+
+                <div style="background: #D1FAE5; padding: 0.4rem 0.75rem; border-radius: 8px; font-size: 0.75rem; font-weight: 700; color: #065F46; display: inline-block; margin-bottom: 0.75rem;">
+                    🏷️ ประหยัดถึง ฿360.00 บาท (โปรโมชันพิเศษ)
+                </div>
+
+                <ul class="package-includes">
+                    <li><span>✓</span> <b>นวดไทยราชสำนักแก้อาการ</b> (90 นาที)</li>
+                    <li><span>✓</span> <b>ประคบสมุนไพรสด</b> (30 นาที)</li>
+                    <li><span>✓</span> <b>อบไอน้ำสมุนไพรสด</b> (30 นาที)</li>
+                </ul>
+
+                <div class="package-pricing">
+                    <div>
+                        <span class="price-main">฿1,590.00</span>
+                        <span class="price-strike">฿1,950.00</span>
+                    </div>
+                    <a href="booking.html" class="btn-mobile-submit" style="padding: 0.6rem 1.1rem; font-size: 0.85rem; text-decoration: none; width: auto; background: #059669;">
+                        <span>🛒 จองแพ็กเกจนี้</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="mobile-bottom-nav" id="mobileBottomNav"></nav>
+    </div>
+
+    <script src="common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMobileBottomNav('packages');
+        });
+
+        function filterPackages(cat, btn) {
+            document.querySelectorAll('.tab-segmented-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.pkg-item-card');
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            showMobileToast(`กรองแพ็กเกจ: ${btn.textContent}`);
+        }
+    </script>
+</body>
+</html>

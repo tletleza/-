@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แดชบอร์ดผู้ดูแลระบบ | คลินิกการแพทย์แผนไทย มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา</title>
+  <meta name="description" content="ระบบบริหารจัดการและภาพรวมระบบ คลินิกการแพทย์แผนไทย มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="styles.css?v=20260804_revert_v1">
+  <link rel="stylesheet" href="dashboard.css?v=20260804_revert_v1">
+</head>
+<body>
+
+  <div class="dashboard-wrapper">
+    <!-- Backdrop for Mobile Sidebar Drawer -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <!-- 1. Left Sidebar Navigation (เมนูด้านซ้าย) -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-icon">
+            <img src="images/bsru_logo.png?v=20260804_trans" alt="ตรามหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา BSRU">
+          </div>
+          <div class="sidebar-brand-text">
+            <span style="font-weight: 700;">การแพทย์แผนไทย</span>
+            <span style="display: block; font-size: 0.72rem; font-weight: 400; color: var(--color-muted-text);">ม.ราชภัฏบ้านสมเด็จเจ้าพระยา</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thai Menu Items -->
+      <ul class="sidebar-menu">
+        <!-- Menu Item: แดชบอร์ด (Default Active) -->
+        <li class="active">
+          <a href="#" class="menu-item-link" data-tab="tab-0">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="menu-item-text">แดชบอร์ด</span>
+          </a>
+        </li>
+        <!-- Menu Item: ระบบบริหารจัดการคิวและลงคิวรับบริการ -->
+        <li>
+          <a href="#" class="menu-item-link" data-tab="tab-1">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="menu-item-text">ระบบบริหารจัดการคิวและลงคิวรับบริการ</span>
+          </a>
+        </li>
+        <!-- Menu Item: ระบบบริหารจัดการข้อมูลผู้ใช้งาน -->
+        <li id="menuUserManagement">
+          <a href="#" class="menu-item-link" data-tab="tab-2">
+            <i class="fa-solid fa-users-gear"></i>
+            <span class="menu-item-text">ระบบบริหารจัดการข้อมูลผู้ใช้งาน</span>
+          </a>
+        </li>
+        <!-- Menu Item: ระบบจัดการตารางปฏิบัติงานของแพทย์และบุคลากร -->
+        <li>
+          <a href="#" class="menu-item-link" data-tab="tab-3">
+            <i class="fa-solid fa-user-doctor"></i>
+            <span class="menu-item-text">ระบบจัดการตารางปฏิบัติงานของแพทย์และบุคลากร (รองรับการคัดกรองแพทย์เฉพาะทางตามอาการของผู้ป่วย)</span>
+          </a>
+        </li>
+        <!-- Menu Item: ระบบจัดเก็บและบริหารจัดการข้อมูลยารักษาโรค -->
+        <li>
+          <a href="#" class="menu-item-link" data-tab="tab-4">
+            <i class="fa-solid fa-pills"></i>
+            <span class="menu-item-text">ระบบจัดเก็บและบริหารจัดการข้อมูลยารักษาโรค</span>
+          </a>
+        </li>
+        <!-- Menu Item: ระบบจัดการรายงานผลการดำเนินงาน -->
+        <li>
+          <a href="#" class="menu-item-link" data-tab="tab-5">
+            <i class="fa-solid fa-chart-line"></i>
+            <span class="menu-item-text">ระบบจัดการรายงานผลการดำเนินงาน</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <p>© 2026 BSRU Traditional Thai Medicine Admin Panel</p>
+      </div>
+    </aside>
+
+    <!-- 2. Main Content Wrapper -->
+    <div class="main-wrapper">
+      
+      <!-- Top Header Bar (แถบด้านบน) -->
+      <header class="top-header">
+        <!-- Single 3-Bar Hamburger Menu Toggle Button -->
+        <button id="hamburgerBtn" class="hamburger-btn" aria-label="เปิด/ปิด เมนูด้านข้าง">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="header-right-tools">
+          <!-- Real-time Thai Date & Time Clock -->
+          <div class="realtime-clock">
+            <i class="fa-regular fa-clock"></i>
+            <span id="realtimeClockText">กำลังโหลดเวลา real-time...</span>
+          </div>
+
+          <!-- Admin User Profile Dropdown Section -->
+          <div id="profileDropdownContainer" class="profile-dropdown-container">
+            <button id="profileDropdownBtn" class="profile-btn" aria-label="เมนูโปรไฟล์">
+              <div class="profile-avatar" id="headerProfileAvatar">
+                <i class="fa-solid fa-user-shield"></i>
+              </div>
+              <div class="profile-info">
+                <span class="profile-name" id="headerProfileName">สมชาย แอดมิน</span>
+                <span class="profile-role-badge" id="headerRoleBadge">ผู้ดูแลระบบ (Admin)</span>
+              </div>
+              <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; color: var(--color-muted-text);"></i>
+            </button>
+
+            <!-- Dropdown Options -->
+            <div class="profile-menu-dropdown">
+              <a href="#" id="openProfileSettingsBtn" class="dropdown-item">
+                <i class="fa-solid fa-sliders"></i>
+                <span>ตั้งค่าโปรไฟล์</span>
+              </a>
+              <a href="#" id="openChangePasswordBtn" class="dropdown-item">
+                <i class="fa-solid fa-key"></i>
+                <span>เปลี่ยนรหัสผ่าน</span>
+              </a>
+              <a href="#" id="logoutBtn" class="dropdown-item logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>ออกจากระบบ</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 3. Main Content Area (พื้นที่เนื้อหาหลัก พร้อมระบบ Tab Switching) -->
+      <main class="dashboard-content">
+        <!-- Tab View 0: แดชบอร์ด (Default View) -->
+        <section id="tab-0" class="tab-content active">
+          <div class="dashboard-page-header">
+            <h1 class="dashboard-page-title">แดชบอร์ด - ภาพรวมระบบ</h1>
+            <p class="dashboard-page-subtitle">ภาพรวมจำนวนผู้ใช้งานตามสิทธิ์ทั้ง 4 ประเภท คิวนัดหมายประจำวัน และการคัดกรองแพทย์เฉพาะทาง</p>
+          </div>
+
+          <!-- 4 Summary User Data Cards Grid -->
+          <div class="stats-cards-grid">
+            <!-- Card 1: Total Admins -->
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon admin">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <span class="stat-role-badge">Tier 1</span>
+              </div>
+              <div>
+                <div class="stat-card-value">1 <span style="font-size: 1.1rem; font-weight: 500;">คน</span></div>
+                <div class="stat-card-label">ผู้ดูแลระบบ (Admin)</div>
+              </div>
+            </div>
+
+            <!-- Card 2: Total Doctors -->
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon doctor">
+                  <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <span class="stat-role-badge">Tier 2</span>
+              </div>
+              <div>
+                <div class="stat-card-value">1 <span style="font-size: 1.1rem; font-weight: 500;">คน</span></div>
+                <div class="stat-card-label">แพทย์แผนไทย (Doctor)</div>
+              </div>
+            </div>
+
+            <!-- Card 3: Total Interns -->
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon intern">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span class="stat-role-badge">Tier 3</span>
+              </div>
+              <div>
+                <div class="stat-card-value">1 <span style="font-size: 1.1rem; font-weight: 500;">คน</span></div>
+                <div class="stat-card-label">นักศึกษาฝึกงาน (Intern)</div>
+              </div>
+            </div>
+
+            <!-- Card 4: Total General Users / Students -->
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon user">
+                  <i class="fa-solid fa-users"></i>
+                </div>
+                <span class="stat-role-badge">Tier 4</span>
+              </div>
+              <div>
+                <div class="stat-card-value">1 <span style="font-size: 1.1rem; font-weight: 500;">คน</span></div>
+                <div class="stat-card-label">ผู้ใช้งานทั่วไป/นักศึกษา</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doctor Specialty Filtering & Scheduling Matrix -->
+          <div class="module-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--color-dark-brown);">
+                  <i class="fa-solid fa-user-doctor" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+                  ตารางปฏิบัติงานแพทย์ & คัดกรองแพทย์เฉพาะทางตามอาการผู้ป่วย
+                </h3>
+                <p style="font-size: 0.88rem; color: var(--color-muted-text); margin-top: 4px;">
+                  ระบบกรองรายชื่อแพทย์และอาจารย์ผู้เชี่ยวชาญเพื่อจัดคิวตรวจตามกลุ่มอาการปวดของผู้ป่วย
+                </p>
+              </div>
+            </div>
+
+            <!-- Specialty Filter Pills -->
+            <div class="filter-pills-row" style="margin: 16px 0 24px 0;">
+              <button class="filter-pill-btn active" data-specialty="all">ทั้งหมด</button>
+              <button class="filter-pill-btn" data-specialty="office-syndrome">ออฟฟิศซินโดรม / คอ บ่า ไหล่</button>
+              <button class="filter-pill-btn" data-specialty="orthopedic">กระดูกและข้อ (ออร์โธปิดิกส์)</button>
+              <button class="filter-pill-btn" data-specialty="element-balance">ปรับสมดุลธาตุ & เผายาสมุนไพร</button>
+            </div>
+
+            <!-- Doctor Filter Table -->
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>ชื่อ - นามสกุล แพทย์</th>
+                    <th>ตำแหน่งทางวิชาการ</th>
+                    <th>ความเชี่ยวชาญเฉพาะทางตามอาการ</th>
+                    <th>เวลาปฏิบัติงานวันนี้</th>
+                    <th>คิวนัดหมายที่ดูแล</th>
+                    <th>สถานะการออกตรวจ</th>
+                  </tr>
+                </thead>
+                <tbody id="doctorScheduleTableBody">
+                  <!-- Dynamically rendered via API (api_doctors.php) -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab View 1: ระบบบริหารจัดการคิวและลงคิวรับบริการ -->
+        <section id="tab-1" class="tab-content">
+          <div class="dashboard-page-header">
+            <h1 class="dashboard-page-title">ระบบบริหารจัดการคิวและลงคิวรับบริการ</h1>
+            <p class="dashboard-page-subtitle">จัดการการลงคิวรับบริการ ออกบัตรคิว เรียกคิวสด และจัดสรรห้องหัตถการบำบัดประจำวัน</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-action-bar">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--color-dark-brown);">
+                  <i class="fa-solid fa-list-check" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+                  รายการคิวนัดหมายประจำวันนี้ (Real-Time Live Queue)
+                </h3>
+              </div>
+              <button id="openAddQueueBtn" class="btn-primary-action">
+                <i class="fa-solid fa-plus"></i>
+                <span>ลงคิวรับบริการใหม่ (Manual Add)</span>
+              </button>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>เลขคิว</th>
+                    <th>ชื่อ - นามสกุล ผู้ป่วย</th>
+                    <th>เบอร์โทรศัพท์</th>
+                    <th>แพ็กเกจบริการรักษา</th>
+                    <th>วัน-เวลานัดหมาย</th>
+                    <th>แพทย์ผู้รับรักษา</th>
+                    <th>ห้องหัตถการ</th>
+                    <th>สถานะคิว</th>
+                    <th>ทำรายการ</th>
+                  </tr>
+                </thead>
+                <tbody id="queueTableBody">
+                  <!-- Dynamically rendered by CENTRAL_CLINIC_DB -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab View 2: ระบบบริหารจัดการข้อมูลผู้ใช้งาน -->
+        <section id="tab-2" class="tab-content">
+          <div class="dashboard-page-header">
+            <h1 class="dashboard-page-title">ระบบบริหารจัดการข้อมูลผู้ใช้งาน</h1>
+            <p class="dashboard-page-subtitle">จัดการข้อมูลผู้ใช้งานตามประเภทบัญชีที่สร้างไว้ 4 บทบาทหลัก (Tiers 1-4)</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-action-bar">
+              <div class="search-input-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="userSearchInput" class="search-input" placeholder="ค้นหาชื่อ, อีเมล หรือรหัสผู้ใช้...">
+              </div>
+
+              <div class="filter-pills-row">
+                <button class="filter-pill-btn user-role-filter active" data-user-role="all">ทั้งหมด (4)</button>
+                <button class="filter-pill-btn user-role-filter" data-user-role="admin">Tier 1: Admin (1)</button>
+                <button class="filter-pill-btn user-role-filter" data-user-role="doctor">Tier 2: Doctor (1)</button>
+                <button class="filter-pill-btn user-role-filter" data-user-role="intern">Tier 3: Intern (1)</button>
+                <button class="filter-pill-btn user-role-filter" data-user-role="user">Tier 4: Student (1)</button>
+              </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>รหัสผู้ใช้</th>
+                    <th>ชื่อ - นามสกุล</th>
+                    <th>อีเมล (E-mail)</th>
+                    <th>เบอร์โทรศัพท์</th>
+                    <th>ระดับสิทธิ์ (Role Tier)</th>
+                    <th>สถานะบัญชี</th>
+                    <th>จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="userTableBody">
+                  <!-- Dynamically rendered by CENTRAL_CLINIC_DB -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab View 3: ระบบจัดการตารางปฏิบัติงานของแพทย์และบุคลากร -->
+        <section id="tab-3" class="tab-content">
+          <div class="dashboard-page-header">
+            <h1 class="dashboard-page-title">ระบบจัดการตารางปฏิบัติงานของแพทย์และบุคลากร</h1>
+            <p class="dashboard-page-subtitle">รองรับการคัดกรองแพทย์เฉพาะทางตามกลุ่มอาการปวดของผู้ป่วย และจัดการตารางเวรอาจารย์แพทย์</p>
+          </div>
+
+          <div class="module-card">
+            <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 16px;">
+              <i class="fa-solid fa-user-doctor" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+              ตารางเวรออกตรวจและคัดกรองตามความเชี่ยวชาญเฉพาะทางประจำสัปดาห์
+            </h3>
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>แพทย์ผู้เชี่ยวชาญ</th>
+                    <th>กลุ่มอาการเฉพาะทางที่รับคัดกรอง</th>
+                    <th>วันออกตรวจประจำ</th>
+                    <th>ช่วงเวลาปฏิบัติงาน</th>
+                    <th>ห้องตรวจประจำ</th>
+                    <th>จำนวนคิวรับได้สูงสุด/วัน</th>
+                  </tr>
+                </thead>
+                <tbody id="weeklyDoctorScheduleTableBody">
+                  <!-- Dynamically rendered from database / API -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab View 4: ระบบจัดเก็บและบริหารจัดการข้อมูลยารักษาโรค -->
+        <section id="tab-4" class="tab-content">
+          <div class="dashboard-page-header">
+            <h1 class="dashboard-page-title">ระบบจัดเก็บและบริหารจัดการข้อมูลยารักษาโรค</h1>
+            <p class="dashboard-page-subtitle">คลังสมุนไพรสด ลูกประคบสด ตำรับยาสมุนไพรไทย น้ำมันบำบัด และเวชภัณฑ์คลินิก มบส.</p>
+          </div>
+
+          <div class="module-card">
+            <div class="module-action-bar">
+              <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--color-dark-brown);">
+                <i class="fa-solid fa-pills" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+                รายการคลังสมุนไพรและตำรับยาคลินิก (Medicine Directory)
+              </h3>
+              <button id="openInventoryBtn" class="btn-primary-action">
+                <i class="fa-solid fa-plus"></i>
+                <span>รับเข้าสมุนไพร / เบิกจ่ายยา</span>
+              </button>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>รหัสยา</th>
+                    <th>ชื่อสมุนไพร / ตำรับยา</th>
+                    <th>หมวดหมู่ยารักษา</th>
+                    <th>จำนวนคงเหลือในคลัง</th>
+                    <th>หน่วยนับ</th>
+                    <th>สถานะสต็อก</th>
+                    <th>การจัดการ</th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                  <!-- Dynamically rendered from CENTRAL_CLINIC_DB / api_inventory.php -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab View 5: ระบบจัดการรายงานผลการดำเนินงาน (Real-Time Performance Dashboard) -->
+        <section id="tab-5" class="tab-content">
+          <div class="dashboard-page-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <h1 class="dashboard-page-title">ระบบจัดการรายงานผลการดำเนินงาน</h1>
+              <p class="dashboard-page-subtitle">รายงานสถิติการรับบริการ สรุปผลการรักษา สถิติหัตถการ และรายได้รวมแบบ Real-Time</p>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span id="realtimeStatusBadge" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); padding: 6px 14px; border-radius: 9999px; font-size: 0.85rem; font-weight: 600;">
+                <i class="fa-solid fa-circle-dot fa-pulse"></i> Real-Time Active
+              </span>
+              <button id="toggleRealtimeBtn" class="btn-primary-action" style="background: var(--color-dark-brown); font-size: 0.85rem; padding: 8px 16px;">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span>รีเฟรชข้อมูลตอนนี้</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Real-Time KPI Stats Cards (4 Grid) -->
+          <div class="stats-cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon doctor"><i class="fa-solid fa-coins"></i></div>
+                <span class="stat-role-badge" style="background: rgba(217, 119, 6, 0.12); color: #d97706;">รายได้รวม</span>
+              </div>
+              <div class="stat-card-value" id="reportTotalRevenue">0 <span style="font-size: 1.1rem;">บาท</span></div>
+              <div class="stat-card-label">รายได้รวมบริการรักษาจากคิวจริง</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon user"><i class="fa-solid fa-notes-medical"></i></div>
+                <span class="stat-role-badge" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">เคสทั้งหมด</span>
+              </div>
+              <div class="stat-card-value" id="reportTotalCases">0 <span style="font-size: 1.1rem;">เคส</span></div>
+              <div class="stat-card-label">จำนวนผู้รับบริการบำบัดรักษา</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon intern"><i class="fa-solid fa-circle-check"></i></div>
+                <span class="stat-role-badge" style="background: rgba(16, 185, 129, 0.12); color: #059669;">เสร็จสิ้น</span>
+              </div>
+              <div class="stat-card-value" id="reportCompletedCases">0 <span style="font-size: 1.1rem;">เคส</span></div>
+              <div class="stat-card-label">การรักษาเสร็จสิ้นสมบูรณ์</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <div class="stat-card-icon admin"><i class="fa-solid fa-hourglass-half"></i></div>
+                <span class="stat-role-badge" style="background: rgba(225, 29, 72, 0.12); color: #e11d48;">แอ็กทีฟ</span>
+              </div>
+              <div class="stat-card-value" id="reportActiveCases">0 <span style="font-size: 1.1rem;">คิว</span></div>
+              <div class="stat-card-label">คิวรอเรียกและกำลังรับบริการ</div>
+            </div>
+          </div>
+
+          <!-- Real-Time Operational Data Tables Side-by-Side -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; margin-bottom: 24px;">
+            <!-- Service Package Breakdown Card -->
+            <div class="module-card">
+              <div class="module-action-bar" style="margin-bottom: 12px;">
+                <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--color-dark-brown);">
+                  <i class="fa-solid fa-chart-pie" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+                  สถิติการรับบริการแยกตามหัตถการ (Real-time Service Breakdown)
+                </h3>
+              </div>
+              <div style="overflow-x: auto;">
+                <table class="custom-table" style="font-size: 0.88rem;">
+                  <thead>
+                    <tr>
+                      <th>รายการหัตถการรักษา</th>
+                      <th style="text-align: center;">ผู้รับบริการ</th>
+                      <th style="text-align: right;">รายได้รวม</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reportPackageTableBody">
+                    <tr><td colspan="3" style="text-align:center; color:#9ca3af; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดข้อมูล Real-time...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Doctor Workload Summary Card -->
+            <div class="module-card">
+              <div class="module-action-bar" style="margin-bottom: 12px;">
+                <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--color-dark-brown);">
+                  <i class="fa-solid fa-user-doctor" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+                  ภาระงานอาจารย์แพทย์แผนไทย (Real-time Doctor Workload)
+                </h3>
+              </div>
+              <div style="overflow-x: auto;">
+                <table class="custom-table" style="font-size: 0.88rem;">
+                  <thead>
+                    <tr>
+                      <th>ชื่ออาจารย์แพทย์แผนไทย</th>
+                      <th style="text-align: center;">จำนวนเคสรับรักษา</th>
+                      <th style="text-align: right;">สัดส่วนเคส</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reportDoctorTableBody">
+                    <tr><td colspan="3" style="text-align:center; color:#9ca3af; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดข้อมูล Real-time...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Activity Log & Export Buttons Card -->
+          <div class="module-card">
+            <div class="module-action-bar" style="flex-wrap: wrap; gap: 12px;">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--color-dark-brown);">
+                  <i class="fa-solid fa-file-invoice-dollar" style="color: var(--color-terracotta); margin-right: 8px;"></i>
+                  รายการการรับบริการและรายงานสรุปผลการดำเนินงานส่งออกข้อมูล
+                </h3>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 4px;" id="reportLastUpdatedText">อัปเดตข้อมูลล่าสุดเมื่อ: -</p>
+              </div>
+
+              <!-- Export Buttons -->
+              <div style="display: flex; gap: 10px;">
+                <button id="exportPdfBtn" class="btn-primary-action">
+                  <i class="fa-solid fa-file-pdf"></i>
+                  <span>พิมพ์ / พิมพ์รายงาน PDF</span>
+                </button>
+                <button id="exportExcelBtn" class="btn-primary-action" style="background:#10B981;">
+                  <i class="fa-solid fa-file-excel"></i>
+                  <span>ส่งออกไฟล์ Excel (.csv)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Recent Activity Table -->
+            <div style="overflow-x: auto; margin-top: 16px;">
+              <table class="custom-table" style="font-size: 0.88rem;">
+                <thead>
+                  <tr>
+                    <th>รหัสคิว</th>
+                    <th>ชื่อผู้รับบริการ</th>
+                    <th>เบอร์โทรศัพท์</th>
+                    <th>แพ็กเกจบริการรักษา</th>
+                    <th>วัน-เวลานัดหมาย</th>
+                    <th>แพทย์ผู้รับรักษา</th>
+                    <th>สถานะการรักษา</th>
+                  </tr>
+                </thead>
+                <tbody id="reportRecentTableBody">
+                  <tr><td colspan="7" style="text-align:center; color:#9ca3af; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> กำลังดึงรายการจองล่าสุดแบบ Real-time...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Real Working Modal 1: Profile Settings Modal -->
+  <div id="profileSettingsModal" class="modal-overlay-custom">
+    <div class="modal-card-box">
+      <button id="closeProfileSettingsBtn" class="modal-close-icon"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title-text">ตั้งค่าโปรไฟล์ผู้ดูแลระบบ</h3>
+      <p class="modal-subtitle-text">ปรับเปลี่ยนชื่อผู้ใช้งาน ข้อมูลการติดต่อ และรูปโปรไฟล์</p>
+
+      <form id="profileSettingsForm">
+        <div class="modal-form-group">
+          <label class="modal-form-label">ชื่อ - นามสกุล ผู้ดูแลระบบ</label>
+          <input type="text" id="profNameInput" class="modal-form-input" value="สมชาย แอดมิน" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">อีเมล (E-mail)</label>
+          <input type="email" id="profEmailInput" class="modal-form-input" value="admin@bsru.ac.th" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">เบอร์โทรศัพท์ติดต่อ</label>
+          <input type="tel" id="profPhoneInput" class="modal-form-input" value="02-473-7000" required>
+        </div>
+        <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <i class="fa-solid fa-floppy-disk"></i> บันทึกการตั้งค่าโปรไฟล์
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Real Working Modal 2: Change Password Modal -->
+  <div id="changePasswordModal" class="modal-overlay-custom">
+    <div class="modal-card-box">
+      <button id="closeChangePasswordBtn" class="modal-close-icon"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title-text">เปลี่ยนรหัสผ่านเข้าใช้งาน</h3>
+      <p class="modal-subtitle-text">เพื่อความปลอดภัยในการเข้าใช้งานระบบบริหารจัดการ คลินิก มบส.</p>
+
+      <form id="changePasswordForm">
+        <div class="modal-form-group">
+          <label class="modal-form-label">รหัสผ่านปัจจุบัน</label>
+          <input type="password" id="oldPassInput" class="modal-form-input" placeholder="กรอกรหัสผ่านปัจจุบัน" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">รหัสผ่านใหม่</label>
+          <input type="password" id="newPassInput" class="modal-form-input" placeholder="กำหนดรหัสผ่านใหม่" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">ยืนยันรหัสผ่านใหม่</label>
+          <input type="password" id="confirmNewPassInput" class="modal-form-input" placeholder="กรอกรหัสผ่านใหม่อีกครั้ง" required>
+        </div>
+        <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <i class="fa-solid fa-key"></i> ยืนยันเปลี่ยนรหัสผ่าน
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Add Queue Modal -->
+  <div id="addQueueModal" class="modal-overlay-custom">
+    <div class="modal-card-box">
+      <button id="closeAddQueueBtn" class="modal-close-icon"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title-text">ลงคิวรับบริการใหม่ (Manual Add Queue)</h3>
+      <p class="modal-subtitle-text">กรอกข้อมูลผู้ป่วยและเลือกแพ็กเกจบริการเพื่อเพิ่มคิวใหม่เข้าระบบ</p>
+
+      <form id="addQueueForm">
+        <div class="modal-form-group">
+          <label class="modal-form-label">ชื่อ - นามสกุล ผู้ป่วย</label>
+          <input type="text" id="qPatientName" class="modal-form-input" placeholder="เช่น คุณสมชาย สุขดี" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">เบอร์โทรศัพท์ติดต่อ</label>
+          <input type="tel" id="qPatientPhone" class="modal-form-input" placeholder="เช่น 081-234-5678" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">เลือกแพ็กเกจบริการรักษา</label>
+          <select id="qPackageSelect" class="modal-form-select">
+            <option value="นวดไทยเพื่อการรักษา (590฿)">นวดไทยเพื่อการรักษา (590฿)</option>
+            <option value="นวดประคบสมุนไพรสด (890฿)">นวดประคบสมุนไพรสด (890฿)</option>
+            <option value="นวดน้ำมันหอมระเหย (1,290฿)">นวดน้ำมันหอมระเหย (1,290฿)</option>
+            <option value="หัตถการเผายาสมุนไพร (750฿)">หัตถการเผายาสมุนไพร (750฿)</option>
+          </select>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">เลือกแพทย์ผู้รับรักษา</label>
+          <select id="qDoctorSelect" class="modal-form-select">
+            <option value="พท.ป. ณัฐวุฒิ สุวรรณเวช">พท.ป. ณัฐวุฒิ สุวรรณเวช (กระดูกและข้อ)</option>
+            <option value="พท.ป. ศิรินทร์ทิพย์ เมธาเวช">พท.ป. ศิรินทร์ทิพย์ เมธาเวช (ออฟฟิศซินโดรม)</option>
+            <option value="พท.ป. ธนพล กาญจนพิบูลย์">พท.ป. ธนพล กาญจนพิบูลย์ (ปรับสมดุลธาตุ)</option>
+          </select>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="modal-form-group">
+            <label class="modal-form-label">วันที่นัดหมาย</label>
+            <input type="date" id="qBookingDate" class="modal-form-input" required>
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-form-label">ช่วงเวลา</label>
+            <select id="qBookingTime" class="modal-form-select">
+              <option value="09:00">09:00 น.</option>
+              <option value="10:30">10:30 น.</option>
+              <option value="13:00">13:00 น.</option>
+              <option value="14:30">14:30 น.</option>
+              <option value="15:30">15:30 น.</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <i class="fa-solid fa-plus"></i> บันทึกเพิ่มคิวเข้าระบบ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Edit User Modal -->
+  <div id="editUserModal" class="modal-overlay-custom">
+    <div class="modal-card-box">
+      <button id="closeEditUserBtn" class="modal-close-icon"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title-text">แก้ไขข้อมูลผู้ใช้งาน</h3>
+      <p class="modal-subtitle-text">ปรับเปลี่ยนข้อมูลส่วนตัวและระดับสิทธิ์การใช้งาน (Role Tier)</p>
+
+      <form id="editUserForm">
+        <input type="hidden" id="editUserId">
+        <div class="modal-form-group">
+          <label class="modal-form-label">ชื่อ - นามสกุล</label>
+          <input type="text" id="editUserName" class="modal-form-input" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">อีเมล (E-mail)</label>
+          <input type="email" id="editUserEmail" class="modal-form-input" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">เบอร์โทรศัพท์</label>
+          <input type="tel" id="editUserPhone" class="modal-form-input" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">ระดับสิทธิ์ (Role Tier)</label>
+          <select id="editUserRoleSelect" class="modal-form-select">
+            <option value="admin">Tier 1: Admin (ผู้ดูแลระบบ)</option>
+            <option value="doctor">Tier 2: Doctor (แพทย์แผนไทย)</option>
+            <option value="intern">Tier 3: Intern (นักศึกษาฝึกงาน)</option>
+            <option value="user">Tier 4: Student (ผู้ใช้งานทั่วไป/นักศึกษา)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <i class="fa-solid fa-floppy-disk"></i> บันทึกการแก้ไข
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Add Inventory Stock Modal -->
+  <div id="addInventoryModal" class="modal-overlay-custom">
+    <div class="modal-card-box">
+      <button id="closeInventoryBtn" class="modal-close-icon"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="modal-title-text">รับเข้าสมุนไพร / เบิกจ่ายยา</h3>
+      <p class="modal-subtitle-text">ทำรายการเบิกจ่ายหรือเพิ่มสต็อกสมุนไพรและตำรับยาคลินิก</p>
+
+      <form id="addInventoryForm">
+        <div class="modal-form-group">
+          <label class="modal-form-label">ชื่อสมุนไพร / ตำรับยา</label>
+          <input type="text" id="medNameInput" class="modal-form-input" placeholder="เช่น ยาสมุนไพรขมิ้นชันแคปซูล" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">จำนวน (หน่วย)</label>
+          <input type="number" id="medQtyInput" class="modal-form-input" placeholder="เช่น 50" required>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">ประเภทรายการ</label>
+          <select id="medActionSelect" class="modal-form-select">
+            <option value="รับเข้าสต็อก">รับเข้าสต็อก (Add Stock)</option>
+            <option value="เบิกจ่ายออก">เบิกจ่ายออก (Deduct Stock)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary-action" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <i class="fa-solid fa-check"></i> ยืนยันทำรายการ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div id="toastNotification" class="toast-notification">
+    <i class="fa-solid fa-circle-check" style="font-size: 1.4rem; color: var(--color-accent-sage);"></i>
+    <span id="toastMessage">แจ้งเตือนระบบ</span>
+  </div>
+
+  <!-- JavaScript Engine -->
+  <script src="dashboard.js?v=20260804_v9999"></script>
+</body>
+</html>

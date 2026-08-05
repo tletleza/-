@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เข้าสู่ระบบ | คลินิกการแพทย์แผนไทย มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา</title>
+  <meta name="description" content="หน้าเข้าสู่ระบบสมาชิกรวมทุกระดับสิทธิ์ คลินิกการแพทย์แผนไทย มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Design System & Split-Screen Auth Styles -->
+  <link rel="stylesheet" href="styles.css?v=20260804_revert_v1">
+  <link rel="stylesheet" href="auth_split.css?v=20260804_revert_v1">
+</head>
+<body>
+
+  <div class="auth-split-container">
+    
+    <!-- Desktop Left Visual Panel -->
+    <div class="auth-visual-side" style="background-image: url('images/hero_clinic.png');">
+      <div class="auth-visual-content">
+        <a href="index.html" class="auth-brand-logo">
+          <div class="auth-brand-icon">
+            <img src="images/bsru_logo.png?v=20260804_trans" alt="ตรามหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา BSRU">
+          </div>
+          <div>
+            <div>คลินิกการแพทย์แผนไทย</div>
+            <div style="font-size: 0.8rem; font-weight: 400; opacity: 0.9;">ม.ราชภัฏบ้านสมเด็จเจ้าพระยา</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="auth-hero-quote">
+        <div class="quote-tag">
+          <i class="fa-solid fa-spa"></i>
+          <span>ภูมิปัญญาบำบัด & สมดุลธาตุทั้งสี่</span>
+        </div>
+        <h2 class="quote-title">ฟื้นฟูกายใจ ด้วยการดูแลแบบองค์รวม</h2>
+        <p class="quote-text">
+          เข้าสู่ระบบเพื่อจัดการคิวนัดหมาย ตรวจประวัติการบำบัดรักษา และเข้าถึงบริการการแพทย์แผนไทยประยุกต์ โดยคณาจารย์ผู้เชี่ยวชาญ มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Form Panel -->
+    <div class="auth-form-side">
+      <div style="width: 100%; max-width: 480px; margin-bottom: 16px; display: flex; justify-content: flex-end;">
+        <a href="index.html" class="back-home-link">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>กลับสู่หน้าหลัก</span>
+        </a>
+      </div>
+
+      <div class="auth-card-box">
+        <div class="auth-header-text">
+          <h1>เข้าสู่ระบบ</h1>
+          <p>กรอกข้อมูลของคุณเพื่อเข้าสู่ระบบสมาชิก คลินิก มบส.</p>
+        </div>
+
+        <!-- Role Simulator & Quick Test Credentials Selector -->
+        <div class="role-simulation-box" style="margin-bottom: 24px;">
+          <div class="role-simulation-title">
+            <i class="fa-solid fa-key"></i>
+            <span>เลือกบัญชีทดสอบ 1-Click (Mock Seed Accounts):</span>
+          </div>
+          <div class="role-badges-group">
+            <button type="button" class="role-badge-btn active" data-role="admin">Tier 1: Admin</button>
+            <button type="button" class="role-badge-btn" data-role="doctor">Tier 2: Doctor</button>
+            <button type="button" class="role-badge-btn" data-role="intern">Tier 3: Intern</button>
+            <button type="button" class="role-badge-btn" data-role="user">Tier 4: Student</button>
+          </div>
+        </div>
+
+        <!-- Error Message Alert Box -->
+        <div id="loginErrorMessage" style="display: none; background-color: #FEE2E2; border: 1px solid #FCA5A5; color: #DC2626; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-bottom: 20px; text-align: center; font-weight: 500;">
+          ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง
+        </div>
+
+        <!-- Standalone Login Form -->
+        <form id="standaloneLoginForm">
+          <!-- Email / Username Input -->
+          <div class="form-group-touch">
+            <i class="fa-solid fa-envelope floating-icon"></i>
+            <input type="text" id="loginEmailInput" class="floating-input" value="admin@bsru.ac.th" placeholder="อีเมล หรือ รหัสนักศึกษา/บุคลากร">
+          </div>
+
+          <!-- Password Input with Eye Toggle -->
+          <div class="form-group-touch">
+            <i class="fa-solid fa-lock floating-icon"></i>
+            <input type="password" id="loginPasswordInput" class="floating-input" value="password123" placeholder="รหัสผ่านของคุณ">
+            <button type="button" class="password-toggle-touch" data-target="loginPasswordInput" aria-label="แสดง/ซ่อน รหัสผ่าน">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+
+          <!-- Options Row -->
+          <div class="form-options-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberMeCheckbox" checked>
+              <span>จดจำการเข้าสู่ระบบ</span>
+            </label>
+            <a href="#" id="openForgotModalBtn" class="forgot-password-link">ลืมรหัสผ่าน?</a>
+          </div>
+
+          <!-- Primary Submit Button -->
+          <button type="submit" id="loginSubmitBtn" class="btn-touch-primary">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>เข้าสู่ระบบ</span>
+          </button>
+        </form>
+
+        <!-- Social / Third-Party SSO Login Stack -->
+        <div class="sso-section-touch">
+          <div class="sso-divider-text">
+            <span>หรือ เข้าสู่ระบบผ่านแอปพลิเคชัน</span>
+          </div>
+
+          <div class="sso-grid-buttons">
+            <button type="button" class="btn-sso-touch btn-sso-bsru" onclick="handleSSOLogin('BSRU Portal SSO')">
+              <i class="fa-solid fa-building-columns"></i>
+              <span>เข้าสู่ระบบด้วย BSRU Portal (SSO มหาวิทยาลัย)</span>
+            </button>
+
+            <button type="button" class="btn-sso-touch btn-sso-google" onclick="handleSSOLogin('Google Account')">
+              <i class="fa-brands fa-google" style="color: var(--color-google-red);"></i>
+              <span>เข้าสู่ระบบด้วย Google</span>
+            </button>
+
+            <button type="button" class="btn-sso-touch btn-sso-line" onclick="handleSSOLogin('LINE Login')">
+              <i class="fa-brands fa-line"></i>
+              <span>เข้าสู่ระบบด้วย LINE</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigation Link to Registration -->
+        <div class="auth-nav-footer">
+          <span>ยังไม่มีบัญชีใช่ไหม?</span>
+          <a href="register.html">สมัครสมาชิกที่นี่</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotPasswordModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 460px;">
+      <button id="closeForgotModalBtn" class="modal-close-btn" aria-label="ปิดหน้าต่าง">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="modal-title">ลืมรหัสผ่าน?</h3>
+      <p class="modal-subtitle">กรุณากรอกอีเมลที่ลงทะเบียนไว้ ระบบจะส่งลิงก์สำหรับรีเซ็ตรหัสผ่านไปยังอีเมลของคุณ</p>
+
+      <form id="forgotForm" class="booking-form">
+        <div class="form-group-touch">
+          <i class="fa-solid fa-envelope floating-icon"></i>
+          <input type="email" id="forgotEmail" class="floating-input" placeholder="ระบุอีเมลของคุณ">
+        </div>
+
+        <button type="submit" class="btn-touch-primary">
+          ส่งลิงก์รีเซ็ตรหัสผ่าน
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div id="toastNotification" class="toast-notification">
+    <i class="fa-solid fa-circle-check" id="toastIcon" style="font-size: 1.4rem; color: var(--color-accent-sage);"></i>
+    <span id="toastMessage">ส่งข้อมูลสำเร็จ</span>
+  </div>
+
+  <script src="auth_router.js?v=20260803_v1011"></script>
+</body>
+</html>
